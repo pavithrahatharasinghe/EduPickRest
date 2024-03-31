@@ -16,98 +16,28 @@ import org.example.edupickrest.models.Enrollment;
 @Path("/enrollments")
 public class EnrollmentServices {
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllEnrollments() {
-        try {
-            return Response.ok(EnrollmentDBUtils.getAllEnrollments()).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addEnrollment(Enrollment enrollment) {
         try {
             if (EnrollmentDBUtils.addEnrollment(enrollment)) {
-                return Response.status(Response.Status.CREATED).entity("Enrollment added successfully").build();
+                return Response.status(201).entity("Enrollment added successfully").build();
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Error adding enrollment").build();
+                return Response.status(400).entity("Failed to add enrollment").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 
     @GET
-    @Path("/{id}")
+    @Path("Course/{courseId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getEnrollmentById(@PathParam("id") int enrollmentId) {
+    public Response getEnrollmentsByCourseId(@PathParam("courseId") int courseId) {
         try {
-            Enrollment enrollment = EnrollmentDBUtils.getEnrollmentById(enrollmentId);
-            if (enrollment != null) {
-                return Response.ok(enrollment).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Enrollment not found").build();
-            }
+            return Response.status(200).entity(EnrollmentDBUtils.getEnrollmentsByCourseId(courseId)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
-    @PUT
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateEnrollment(@PathParam("id") int enrollmentId, Enrollment enrollment) {
-        try {
-            enrollment.setEnrollmentID(enrollmentId); // Ensure the ID is set correctly
-            if (EnrollmentDBUtils.updateEnrollment(enrollment)) {
-                return Response.ok().entity("Enrollment updated successfully").build();
-            } else {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Error updating enrollment").build();
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
-    @DELETE
-    @Path("/{id}")
-    public Response deleteEnrollment(@PathParam("id") int enrollmentId) {
-        try {
-            if (EnrollmentDBUtils.deleteEnrollment(enrollmentId)) {
-                return Response.ok().entity("Enrollment deleted successfully").build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Enrollment not found").build();
-
-            }
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
-    @GET
-    @Path("/user/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-
-    public Response getEnrollmentsByUserId(@PathParam("id") int userId) {
-        try {
-            return Response.ok(EnrollmentDBUtils.getEnrollmentsByUserId(userId)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
-    @GET
-    @Path("/course/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-
-    public Response getEnrollmentsByCourseId(@PathParam("id") int courseId) {
-        try {
-            return Response.ok(EnrollmentDBUtils.getEnrollmentsByCourseId(courseId)).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 

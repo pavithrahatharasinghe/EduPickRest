@@ -2,100 +2,65 @@ package org.example.edupickrest.services;
 
 import jakarta.ws.rs.Path;
 import org.example.edupickrest.database.AssignmentDBUtils;
-import org.example.edupickrest.models.Assignment;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.example.edupickrest.models.Assignment;
 
-//Assignment Class variables
-//AssignmentID, AssignmentName, AssignmentDescription, AssignmentType, AssignmentStatus, AssignmentDueDate, AssignmentDueTime, AssignmentCourse, AssignmentModule, AssignmentFile
-
-
-//Course DBUtils methods
-//Fetch all courses, Fetch course by ID, Add course, Update course, Delete course, Fetch courses by category, Fetch courses by level, Fetch courses by language, Fetch courses by price, Fetch courses by category and level, Fetch courses by category and language, Fetch courses by category and price, Fetch courses by level and language, Fetch courses by level and price, Fetch courses by language and price
 
 @Path("/assignments")
 public class AssignmentServices {
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllAssignments() {
-        try {
-            return Response.ok(AssignmentDBUtils.getAllAssignments()).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addAssignment(Assignment assignment) {
         try {
             if (AssignmentDBUtils.addAssignment(assignment)) {
-                return Response.status(Response.Status.CREATED).entity("Assignment added successfully").build();
+                return Response.status(201).entity("Assignment added successfully").build();
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Error adding assignment").build();
+                return Response.status(400).entity("Failed to add assignment").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 
     @GET
-    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAssignmentById(@PathParam("id") int assignmentId) {
+    public Response getAllAssignments() {
         try {
-            Assignment assignment = AssignmentDBUtils.getAssignmentById(assignmentId);
-            if (assignment != null) {
-                return Response.ok(assignment).build();
-            } else {
-                return Response.status(Response.Status.NOT_FOUND).entity("Assignment not found").build();
-            }
+            return Response.status(200).entity(AssignmentDBUtils.getAllAssignments()).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("/{assignmentID}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response updateAssignment(@PathParam("id") int assignmentId, Assignment assignment) {
+    public Response updateAssignment(@PathParam("assignmentID") int assignmentID, Assignment assignment) {
         try {
-            assignment.setAssignmentID(assignmentId); // Ensure the ID is set correctly
-            if (AssignmentDBUtils.updateAssignment(assignment)) {
-                return Response.ok().entity("Assignment updated successfully").build();
+            if (AssignmentDBUtils.updateAssignment(assignmentID, assignment)) {
+                return Response.status(200).entity("Assignment updated successfully").build();
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Error updating assignment").build();
+                return Response.status(400).entity("Failed to update assignment").build();
             }
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deleteAssignment(@PathParam("id") int assignmentId) {
+    @Path("/{assignmentID}")
+    public Response deleteAssignment(@PathParam("assignmentID") int assignmentID) {
         try {
-            if (AssignmentDBUtils.deleteAssignment(assignmentId)) {
-                return Response.ok().entity("Assignment deleted successfully").build();
+            if (AssignmentDBUtils.deleteAssignment(assignmentID)) {
+                return Response.status(200).entity("Assignment deleted successfully").build();
             } else {
-                return Response.status(Response.Status.BAD_REQUEST).entity("Error deleting assignment").build();
+                return Response.status(400).entity("Failed to delete assignment").build();
             }
-        }
-        catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
-        }
-    }
-
-    @GET
-    @Path("/course/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getAssignmentsByCourse(@PathParam("id") int courseId) {
-        try {
-            return Response.ok(AssignmentDBUtils.getAssignmentsByCourse(courseId)).build();
         } catch (Exception e) {
-            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Internal server error").build();
+            return Response.status(500).entity("Internal Server Error").build();
         }
     }
 

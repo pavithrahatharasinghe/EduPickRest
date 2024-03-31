@@ -2,32 +2,31 @@ package org.example.edupickrest.models;
 
 public class Assignment {
 
-    //AssignmentID, AssignmentName, AssignmentDescription, AssignmentType, AssignmentStatus, AssignmentDueDate, AssignmentDueTime, AssignmentCourse, AssignmentModule, AssignmentFile
+    //assignmentID - int , moduleID - int , courseID - int , assignmentName - varchar(255) , assignmentDescription - text , assignmentURL - varchar(255) , assignmentType - varchar(255) , assignmentStatus - varchar(255) , dueDateTime - datetime
+
     private int assignmentID;
+    private int moduleID;
+    private int courseID;
     private String assignmentName;
     private String assignmentDescription;
+    private String assignmentURL;
     private String assignmentType;
     private String assignmentStatus;
-    private String assignmentDueDate;
-    private String assignmentDueTime;
-    private String assignmentCourse;
-    private String assignmentModule;
-    private String assignmentFile;
+    private String dueDateTime;
 
     public Assignment() {
     }
 
-    public Assignment(int assignmentID, String assignmentName, String assignmentDescription, String assignmentType, String assignmentStatus, String assignmentDueDate, String assignmentDueTime, String assignmentCourse, String assignmentModule, String assignmentFile) {
+    public Assignment(int assignmentID, int moduleID, int courseID, String assignmentName, String assignmentDescription, String assignmentURL, String assignmentType, String assignmentStatus, String dueDateTime) {
         this.assignmentID = assignmentID;
+        this.moduleID = moduleID;
+        this.courseID = courseID;
         this.assignmentName = assignmentName;
         this.assignmentDescription = assignmentDescription;
+        this.assignmentURL = assignmentURL;
         this.assignmentType = assignmentType;
         this.assignmentStatus = assignmentStatus;
-        this.assignmentDueDate = assignmentDueDate;
-        this.assignmentDueTime = assignmentDueTime;
-        this.assignmentCourse = assignmentCourse;
-        this.assignmentModule = assignmentModule;
-        this.assignmentFile = assignmentFile;
+        this.dueDateTime = dueDateTime;
     }
 
     public int getAssignmentID() {
@@ -36,6 +35,22 @@ public class Assignment {
 
     public void setAssignmentID(int assignmentID) {
         this.assignmentID = assignmentID;
+    }
+
+    public int getModuleID() {
+        return moduleID;
+    }
+
+    public void setModuleID(int moduleID) {
+        this.moduleID = moduleID;
+    }
+
+    public int getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(int courseID) {
+        this.courseID = courseID;
     }
 
     public String getAssignmentName() {
@@ -54,6 +69,14 @@ public class Assignment {
         this.assignmentDescription = assignmentDescription;
     }
 
+    public String getAssignmentURL() {
+        return assignmentURL;
+    }
+
+    public void setAssignmentURL(String assignmentURL) {
+        this.assignmentURL = assignmentURL;
+    }
+
     public String getAssignmentType() {
         return assignmentType;
     }
@@ -70,46 +93,11 @@ public class Assignment {
         this.assignmentStatus = assignmentStatus;
     }
 
-    public String getAssignmentDueDate() {
-        return assignmentDueDate;
+    public String getDueDateTime() {
+        return dueDateTime;
     }
 
-    public void setAssignmentDueDate(String assignmentDueDate) {
-        this.assignmentDueDate = assignmentDueDate;
-    }
-
-    public String getAssignmentDueTime() {
-        return assignmentDueTime;
-    }
-
-    public void setAssignmentDueTime(String assignmentDueTime) {
-        this.assignmentDueTime = assignmentDueTime;
-    }
-
-    public String getAssignmentCourse() {
-        return assignmentCourse;
-    }
-
-    public void setAssignmentCourse(String assignmentCourse) {
-        this.assignmentCourse = assignmentCourse;
-    }
-
-    public String getAssignmentModule() {
-        return assignmentModule;
-    }
-
-    public void setAssignmentModule(String assignmentModule) {
-        this.assignmentModule = assignmentModule;
-    }
-
-    public String getAssignmentFile() {
-        return assignmentFile;
-    }
-
-    public void setAssignmentFile(String assignmentFile) {
-        this.assignmentFile = assignmentFile;
+    public void setDueDateTime(String dueDateTime) {
+        this.dueDateTime = dueDateTime;
     }
 }
-
-// sql to create the table for the Assignment class
-// CREATE TABLE Assignment ( assignmentID INT PRIMARY KEY, assignmentName VARCHAR(255), assignmentDescription VARCHAR(255), assignmentType VARCHAR(255), assignmentStatus VARCHAR(255), assignmentDueDate DATE, assignmentDueTime TIME, assignmentCourse VARCHAR(255), assignmentModule VARCHAR(255), assignmentFile VARCHAR(255) );

@@ -3,19 +3,19 @@ package org.example.edupickrest.models;
 import java.util.Date;
 
 public class Enrollment {
+   //-- enrollmentID - int - primary key, userID - int - foreign key, courseID - int - foreign key, enrollmentDate - date, completionDate - date, completionStatus - int
+
     private int enrollmentID;
     private int userID;
     private int courseID;
-    private Date enrollmentDate;
-    private Date completionDate;
+    private String enrollmentDate;
+    private String completionDate;
     private int completionStatus;
-
-    //enrollmentID, userID, courseID, enrollmentDate, completionDate, completionStatus
 
     public Enrollment() {
     }
 
-    public Enrollment(int enrollmentID, int userID, int courseID, Date enrollmentDate, Date completionDate, int completionStatus) {
+    public Enrollment(int enrollmentID, int userID, int courseID, String enrollmentDate, String completionDate, int completionStatus) {
         this.enrollmentID = enrollmentID;
         this.userID = userID;
         this.courseID = courseID;
@@ -48,19 +48,19 @@ public class Enrollment {
         this.courseID = courseID;
     }
 
-    public Date getEnrollmentDate() {
+    public String getEnrollmentDate() {
         return enrollmentDate;
     }
 
-    public void setEnrollmentDate(Date enrollmentDate) {
+    public void setEnrollmentDate(String enrollmentDate) {
         this.enrollmentDate = enrollmentDate;
     }
 
-    public Date getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public void setCompletionDate(Date completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
     }
 
@@ -73,5 +73,3 @@ public class Enrollment {
     }
 }
 
-//SQL to create the table for the Enrollment class
-//CREATE TABLE Enrollment ( enrollmentID INT PRIMARY KEY, userID INT, courseID INT, enrollmentDate DATE, completionDate DATE, completionStatus INT, FOREIGN KEY (userID) REFERENCES User(userID), FOREIGN KEY (courseID) REFERENCES Course(courseID) );

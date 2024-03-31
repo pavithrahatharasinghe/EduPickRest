@@ -1,20 +1,20 @@
 package org.example.edupickrest.models;
 
-public class Course {
-    private int courseID;
-    private String courseName;
-    private String courseDescription;
-    private String courseImage;
-    private String courseCategory;
-    private String courseLevel;
-    private String courseLanguage;
+public class Course {private int courseID;
+    private java.lang.String courseName;
+    private java.lang.String courseDescription;
+    private java.lang.String courseImage;
+    private java.lang.String courseCategory;
+    private java.lang.String courseLevel;
+    private java.lang.String courseLanguage;
     private double coursePrice;
-    private String courseURL;
+    private java.lang.String courseURL;
+    private java.lang.String courseDuration;
 
-    //Course class variables
-    //CourseID, CourseName, CourseDescription, CourseImage, CourseCategory, CourseLevel, CourseLanguage, CoursePrice, CourseURL
+    public Course() {
+    }
 
-    public Course(int courseID, String courseName, String courseDescription, String courseImage, String courseCategory, String courseLevel, String courseLanguage, double coursePrice, String courseURL) {
+    public Course(int courseID, String courseName, String courseDescription, String courseImage, String courseCategory, String courseLevel, String courseLanguage, double coursePrice, String courseURL, String courseDuration) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseDescription = courseDescription;
@@ -24,6 +24,7 @@ public class Course {
         this.courseLanguage = courseLanguage;
         this.coursePrice = coursePrice;
         this.courseURL = courseURL;
+        this.courseDuration = courseDuration;
     }
 
     public int getCourseID() {
@@ -97,8 +98,14 @@ public class Course {
     public void setCourseURL(String courseURL) {
         this.courseURL = courseURL;
     }
+
+    public String getCourseDuration() {
+        return courseDuration;
+    }
+
+    public void setCourseDuration(String courseDuration) {
+        this.courseDuration = courseDuration;
+    }
 }
 
 
-// sql to create the table for the Course class
-// CREATE TABLE Course ( courseID INT PRIMARY KEY, courseName VARCHAR(255), courseDescription VARCHAR(255), courseImage VARCHAR(255), courseCategory VARCHAR(255), courseLevel VARCHAR(255), courseLanguage VARCHAR(255), coursePrice DOUBLE, courseURL VARCHAR(255) );
