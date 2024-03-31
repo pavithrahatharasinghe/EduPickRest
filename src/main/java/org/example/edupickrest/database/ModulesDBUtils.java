@@ -103,6 +103,13 @@ public class ModulesDBUtils {
         return preparedStatement.executeUpdate() > 0;
     }
 
+    public static boolean deleteModule(int moduleID) throws SQLException {
+        String query = "DELETE FROM modules WHERE moduleID = ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        preparedStatement.setInt(1, moduleID);
+        return preparedStatement.executeUpdate() > 0;
+    }
+
 
 
 }

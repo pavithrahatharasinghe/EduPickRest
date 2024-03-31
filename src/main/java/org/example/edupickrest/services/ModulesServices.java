@@ -44,6 +44,8 @@ public class ModulesServices {
         }
     }
 
+
+
     @GET
     @Path("/{moduleID}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -63,6 +65,20 @@ public class ModulesServices {
                 return Response.status(200).entity("Module updated successfully").build();
             } else {
                 return Response.status(400).entity("Failed to update module").build();
+            }
+        } catch (Exception e) {
+            return Response.status(500).entity("Internal Server Error").build();
+        }
+    }
+
+    @DELETE
+    @Path("/{moduleID}")
+    public Response deleteModule(@PathParam("moduleID") int moduleID) {
+        try {
+            if (ModulesDBUtils.deleteModule(moduleID)) {
+                return Response.status(200).entity("Module deleted successfully").build();
+            } else {
+                return Response.status(400).entity("Failed to delete module").build();
             }
         } catch (Exception e) {
             return Response.status(500).entity("Internal Server Error").build();
